@@ -51,7 +51,7 @@ public class CoffeeController {
         Coffee coffee = new Coffee(id, coffeeDto.name());
 
         if (coffeeRepository.existsById(id)) {
-            coffeeRepository.updateNameById(coffee);
+            coffeeRepository.save(coffee);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             coffeeRepository.save(coffee);
