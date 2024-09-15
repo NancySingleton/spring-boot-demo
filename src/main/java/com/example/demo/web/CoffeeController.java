@@ -9,25 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/coffees")
 public class CoffeeController {
 
     @Autowired
-    private final CoffeeRepository coffeeRepository;
-
-    @Autowired
-    public CoffeeController(CoffeeRepository coffeeRepository) {
-        this.coffeeRepository = coffeeRepository;
-
-        coffeeRepository.saveAll(List.of(
-                new Coffee("Latte"),
-                new Coffee("Cappuccino"),
-                new Coffee("Espresso")
-        ));
-    }
+    private CoffeeRepository coffeeRepository;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
