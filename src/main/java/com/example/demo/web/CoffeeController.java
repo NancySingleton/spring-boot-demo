@@ -2,31 +2,24 @@ package com.example.demo.web;
 
 import com.example.demo.domain.Coffee;
 import com.example.demo.dto.CoffeeDto;
+import com.example.demo.repository.CoffeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class CoffeeController {
-    private List<Coffee> coffees = new ArrayList<>();
 
-    public CoffeeController() {
-        coffees.addAll(List.of(
-                new Coffee("Latte"),
-                new Coffee("Cappuccino"),
-                new Coffee("Espresso")
-        ));
-    }
+    @Autowired
+    private CoffeeRepository coffeeRepository;
 
     @GetMapping("/coffees")
-    List<Coffee> getCoffees() {
-        return coffees;
+    Iterable<Coffee> getCoffees() {
+        return coffeeRepository.findAll();
     }
 
     @PostMapping("/coffees")
     void postCoffee(@RequestBody CoffeeDto coffeeDto) {
         Coffee coffee = new Coffee(coffeeDto.name());
-        coffees.add(coffee);
+        coffeeRepository.save(coffee);
     }
 }
