@@ -25,4 +25,14 @@ public class CoffeeRepository {
     public void save(Coffee coffee) {
         coffees.add(coffee);
     }
+
+    public boolean existsById(String id) {
+        return coffees.stream().anyMatch(c -> c.getId().equals(id));
+    }
+
+    public void updateNameById(Coffee coffee) {
+        coffees.stream()
+                .filter(c -> c.getId().equals(coffee.getId()))
+                .forEach(c -> c.setName(coffee.getName()));
+    }
 }

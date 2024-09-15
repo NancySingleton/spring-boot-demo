@@ -22,4 +22,18 @@ public class CoffeeController {
         Coffee coffee = new Coffee(coffeeDto.name());
         coffeeRepository.save(coffee);
     }
+
+    @PutMapping("/coffees/{id}")
+    void putCoffee(
+            @PathVariable String id,
+            @RequestBody CoffeeDto coffeeDto
+    ) {
+        Coffee coffee = new Coffee(id, coffeeDto.name());
+
+        if (coffeeRepository.existsById(id)) {
+            coffeeRepository.updateNameById(coffee);
+        } else {
+            coffeeRepository.save(coffee);
+        }
+    }
 }
