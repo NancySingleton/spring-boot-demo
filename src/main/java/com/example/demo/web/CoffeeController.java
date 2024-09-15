@@ -1,7 +1,8 @@
 package com.example.demo.web;
 
 import com.example.demo.domain.Coffee;
-import com.example.demo.dto.CoffeeDto;
+import com.example.demo.dto.CoffeeRequestDto;
+import com.example.demo.dto.CoffeesResponseDto;
 import com.example.demo.repository.CoffeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,13 +18,14 @@ public class CoffeeController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    Iterable<Coffee> getCoffees() {
-        return coffeeRepository.findAll();
+    CoffeesResponseDto getCoffees() {
+        Iterable<Coffee> coffees = coffeeRepository.findAll();
+        return new CoffeesResponseDto(coffees);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    void postCoffee(@RequestBody CoffeeDto coffeeDto) {
+    void postCoffee(@RequestBody CoffeeRequestDto coffeeDto) {
         Coffee coffee = new Coffee(coffeeDto.name());
         coffeeRepository.save(coffee);
     }
@@ -31,7 +33,7 @@ public class CoffeeController {
     @PutMapping("/{id}")
     ResponseEntity<Object> putCoffee(
             @PathVariable String id,
-            @RequestBody CoffeeDto coffeeDto
+            @RequestBody CoffeeRequestDto coffeeDto
     ) {
         Coffee coffee = new Coffee(id, coffeeDto.name());
 
