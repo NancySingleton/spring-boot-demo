@@ -7,23 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/coffees")
 public class CoffeeController {
 
     @Autowired
     private CoffeeRepository coffeeRepository;
 
-    @GetMapping("/coffees")
+    @GetMapping
     Iterable<Coffee> getCoffees() {
         return coffeeRepository.findAll();
     }
 
-    @PostMapping("/coffees")
+    @PostMapping
     void postCoffee(@RequestBody CoffeeDto coffeeDto) {
         Coffee coffee = new Coffee(coffeeDto.name());
         coffeeRepository.save(coffee);
     }
 
-    @PutMapping("/coffees/{id}")
+    @PutMapping("/{id}")
     void putCoffee(
             @PathVariable String id,
             @RequestBody CoffeeDto coffeeDto
@@ -37,7 +38,7 @@ public class CoffeeController {
         }
     }
 
-    @DeleteMapping("/coffees/{id}")
+    @DeleteMapping("/{id}")
     void deleteCoffee(
             @PathVariable String id
     ) {
