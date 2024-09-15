@@ -1,8 +1,8 @@
 package com.example.demo.web;
 
 import com.example.demo.domain.Coffee;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.dto.CoffeeDto;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,5 +22,11 @@ public class CoffeeController {
     @GetMapping("/coffees")
     List<Coffee> getCoffees() {
         return coffees;
+    }
+
+    @PostMapping("/coffees")
+    void postCoffee(@RequestBody CoffeeDto coffeeDto) {
+        Coffee coffee = new Coffee(coffeeDto.name());
+        coffees.add(coffee);
     }
 }
