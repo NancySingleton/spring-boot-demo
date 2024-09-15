@@ -48,15 +48,12 @@ public class CoffeeController {
             @PathVariable String id,
             @RequestBody CoffeeRequestDto coffeeDto
     ) {
-        Coffee coffee = new Coffee(id, coffeeDto.name());
+        boolean alreadyExists = coffeeRepository.existsById(id);
 
-        if (coffeeRepository.existsById(id)) {
-            coffeeRepository.save(coffee);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            coffeeRepository.save(coffee);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
+        Coffee coffee = new Coffee(id, coffeeDto.name());
+        coffeeRepository.save(coffee);
+
+        return new ResponseEntity<>(alreadyExists ? HttpStatus.OK : HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
