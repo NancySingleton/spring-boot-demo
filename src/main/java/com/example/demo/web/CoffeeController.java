@@ -36,4 +36,11 @@ public class CoffeeController {
             coffeeRepository.save(coffee);
         }
     }
+
+    @DeleteMapping("/coffees/{id}")
+    void deleteCoffee(
+            @PathVariable String id
+    ) {
+        coffeeRepository.deleteById(id);
+    }
 }

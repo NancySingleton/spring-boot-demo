@@ -35,4 +35,8 @@ public class CoffeeRepository {
                 .filter(c -> c.getId().equals(coffee.getId()))
                 .forEach(c -> c.setName(coffee.getName()));
     }
+
+    public void deleteById(String id) {
+        coffees.removeIf(c -> c.getId().equals(id));
+    }
 }
