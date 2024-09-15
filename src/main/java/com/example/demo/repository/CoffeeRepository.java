@@ -10,13 +10,7 @@ import java.util.List;
 public class CoffeeRepository {
     private final List<Coffee> coffees = new ArrayList<>();
 
-    public CoffeeRepository() {
-        coffees.addAll(List.of(
-                new Coffee("Latte"),
-                new Coffee("Cappuccino"),
-                new Coffee("Espresso")
-        ));
-    }
+    public CoffeeRepository() {}
 
     public Iterable<Coffee> findAll() {
         return coffees;
@@ -24,6 +18,10 @@ public class CoffeeRepository {
 
     public void save(Coffee coffee) {
         coffees.add(coffee);
+    }
+
+    public void saveAll(List<Coffee> newCoffees) {
+        coffees.addAll(newCoffees);
     }
 
     public boolean existsById(String id) {
